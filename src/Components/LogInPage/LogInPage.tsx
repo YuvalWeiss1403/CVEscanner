@@ -8,27 +8,25 @@ const LogInPage: React.FC = () => {
 	const navigator = useNavigate();
 	const [Email, setEmail] = useState("");
 	const [Password, setPassword] = useState("");
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	// const onLogin = async () => {
-	// 	try {
-	// 		const userReq = await axios.post(
-	// 			'https://shareware-server.onrender.com/users/',
-	// 			{
-	// 				email: Email,
-	// 				password: Password,
-	// 			}
-	// 		);
-	// 		sessionStorage.setItem('user', JSON.stringify(userReq.data));
-	// 		navigator('/');
-	// 	} catch (error: any) {
-	// 		// alert(error.response.data);
-	// 		setIsModalOpen(true);
-	// 		return [];
-	// 	}
-	// };
+	const onLogin = async () => {
+		try {
+			const userReq = await axios.post(
+				"Listening on http://localhost:3001/users/",
+				{
+					email: Email,
+					password: Password,
+				}
+			);
+			sessionStorage.setItem("user", JSON.stringify(userReq.data));
+			navigator("/");
+		} catch (error: any) {
+			alert(error.response.data);
+			return [];
+		}
+	};
 
 	const handelLogin = async () => {
-		// await onLogin();
+		await onLogin();
 	};
 
 	return (

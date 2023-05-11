@@ -21,27 +21,24 @@ const SignUp: React.FC = () => {
 		handelPasswords();
 	}, [User]);
 
-	// const onSignUp = async () => {
-	// 	try {
-	// 		const userReq = await axios.post(
-	// 			"https://shareware-server.onrender.com/users/create",
-	// 			{
-	// 				firstName: User.first_name,
-	// 				lastName: User.last_name,
-	// 				email: User.email,
-	// 				password: User.password,
-	// 			}
-	// 		);
-	// 		sessionStorage.setItem("user", JSON.stringify(userReq.data));
-	// 		navigator("/");
-	// 	} catch (error: any) {
-	// 		alert(error.response.data);
-	// 		return [];
-	// 	}
-	// };
+	const onSignUp = async () => {
+		try {
+			const userReq = await axios.post("http://localhost:3001/users", {
+				firstName: User.first_name,
+				lastName: User.last_name,
+				email: User.email,
+				password: User.password,
+			});
+			sessionStorage.setItem("user", JSON.stringify(userReq.data));
+			navigator("/");
+		} catch (error: any) {
+			// alert(error.response.data);
+			return [];
+		}
+	};
 
 	const handelSignUp = async () => {
-		// PasswordsMatch ? await onSignUp() : alert("not match");
+		PasswordsMatch ? await onSignUp() : alert("not match");
 	};
 
 	const handelPasswords = () => {
