@@ -10,13 +10,10 @@ const LogInPage: React.FC = () => {
 	const [Password, setPassword] = useState("");
 	const onLogin = async () => {
 		try {
-			const userReq = await axios.post(
-				"Listening on http://localhost:3001/users/",
-				{
-					email: Email,
-					password: Password,
-				}
-			);
+			const userReq = await axios.post("http://localhost:3001/users/", {
+				email: Email,
+				password: Password,
+			});
 			sessionStorage.setItem("user", JSON.stringify(userReq.data));
 			navigator("/");
 		} catch (error: any) {

@@ -23,7 +23,7 @@ const SignUp: React.FC = () => {
 
 	const onSignUp = async () => {
 		try {
-			const userReq = await axios.post("http://localhost:3001/users", {
+			const userReq = await axios.post("http://localhost:3001/users/create", {
 				firstName: User.first_name,
 				lastName: User.last_name,
 				email: User.email,
