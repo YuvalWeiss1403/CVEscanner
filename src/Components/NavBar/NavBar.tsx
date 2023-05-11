@@ -30,7 +30,7 @@ const NavBar: React.FC = () => {
 						className="user-message"
 						onClick={() =>
 							navigator("/userInfo")
-						}>{`Hello, ${data.firstName}`}</button>
+						}>{`${data.firstName} ${data.lastName}`}</button>
 				)}
 				{!isUserLoggedIn && (
 					<>
