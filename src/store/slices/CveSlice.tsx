@@ -10,9 +10,7 @@ const getNVDData = async () => {
 			}
 		);
 		const data = await response.json();
-		console.log(data.vulnerabilities);
-
-		return data;
+		return data.vulnerabilities;
 	} catch (err) {}
 };
 const cves: ICVEState = await getNVDData();
