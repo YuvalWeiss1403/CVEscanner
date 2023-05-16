@@ -18,10 +18,16 @@ const NavBar: React.FC = () => {
 				</button>
 				<input type="text" placeholder="Search" className="search"></input>
 				<button className="add-data">Add Data</button>
-				<button className="all-capabilities">All Capabilities</button>
-				<button className="all-entities">All Entities</button>
-				<button className="apps">Apps</button>
 				<button className="devices">Devices</button>
+				<button className="openwrt" onClick={() => navigator("/openwrt")}>
+					Openwrt
+				</button>
+				<button className="dlink" onClick={() => navigator("/dlink")}>
+					Dlink
+				</button>
+				<button className="hikvision" onClick={() => navigator("/hikvision")}>
+					HikVision
+				</button>
 			</div>
 			<div className="footer-container">
 				<button className="help">Help</button>

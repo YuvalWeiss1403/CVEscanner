@@ -1,6 +1,18 @@
 .nvd-page {
 	width: 100%;
 	height: 100%;
+	background-color: hsl(0deg 0% 69% / 39%);
+}
+
+.logo-openwrt {
+	padding-left: 160px;
+	padding-top: 20px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	background-image: url("../../assets/openwrt.svg");
+	background-repeat: no-repeat;
 }
 
 .cve-content {
@@ -12,4 +24,13 @@
 	justify-content: center;
 	align-items: center;
 	overflow-y: scroll;
+}
+.severity-cards {
+	padding-left: 160px;
+	padding-top: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
 }

@@ -4,19 +4,21 @@ import { ICVEState } from "../store";
 const getNVDData = async () => {
 	try {
 		const response = await fetch(
-			"https://services.nvd.nist.gov/rest/json/cves/2.0",
+			"https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=openwrt",
 			{
 				method: "GET",
 			}
 		);
 		const data = await response.json();
+		console.log(data.vulnerabilities);
+
 		return data.vulnerabilities;
 	} catch (err) {}
 };
 const cves: ICVEState = await getNVDData();
 
-export const cveSlice = createSlice({
-	name: "cves",
+export const OpenwrtSlice = createSlice({
+	name: "openwrtCves",
 	initialState: {
 		value: cves,
 		filteredValue: {},
@@ -28,6 +30,6 @@ export const cveSlice = createSlice({
 	},
 });
 
-export const { setAllCves } = cveSlice.actions;
+export const { setAllCves } = OpenwrtSlice.actions;
 
-export default cveSlice.reducer;
+export default OpenwrtSlice.reducer;

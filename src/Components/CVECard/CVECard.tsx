@@ -9,15 +9,47 @@ export interface description {
 	value: string;
 }
 
+export interface reference {
+	url: string;
+	source: string;
+}
+export interface weakness {
+	source: string;
+	type: string;
+	description: description[];
+}
+export interface cvsData {
+	version: string;
+	vectorString: string;
+	accessVector: string;
+	accessComplexity: string;
+	authentication: string;
+	confidentialityImpact: string;
+	integrityImpact: string;
+	availabilityImpact: string;
+	baseScore: number;
+}
+
+export interface metric {
+	cvssMetricV2: metricData[];
+}
+export interface metricData {
+	source: string;
+	type: string;
+	cvssData: cvsData;
+	baseSeverity: string;
+	exploitabilityScore: number;
+}
 export interface ICVECard {
 	descriptions: description[];
 	id: string;
 	lastModified: string;
 	published: string;
-	references: object[];
+	references: reference[];
 	sourceIdentifier: string;
 	vulnStatus: string;
-	weaknesses: object[];
+	weaknesses: weakness[];
+	metrics: metric;
 }
 
 const CVECard: React.FC<ICVECard> = (props: ICVECard) => {
@@ -30,7 +62,9 @@ const CVECard: React.FC<ICVECard> = (props: ICVECard) => {
 		sourceIdentifier,
 		vulnStatus,
 		weaknesses,
+		metrics,
 	} = props;
+
 	return (
 		<div className="cve-card">
 			<div className="cve-id">{id}</div>
