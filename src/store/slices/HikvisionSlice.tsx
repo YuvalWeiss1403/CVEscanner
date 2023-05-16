@@ -4,7 +4,7 @@
 // const getNVDData = async () => {
 // 	try {
 // 		const response = await fetch(
-// 			"https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=dlink",
+// 			"https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=Hikvision",
 // 			{
 // 				method: "GET",
 // 			}
@@ -15,17 +15,17 @@
 // };
 // const cves: ICVE[] = await getNVDData();
 
-// export const DlinkSlice = createSlice({
-// 	name: "DlinkCves",
+// export const HikvisionSlice = createSlice({
+// 	name: "HikvisionCves",
 // 	initialState: {
 // 		value: cves,
-// 		filteredValue: cves,
+// 		filteredValue: {},
 // 	},
 // 	reducers: {
 // 		setAllCves: (state) => {
 // 			state.filteredValue = state.value;
 // 		},
-// 		DlinkCvesBySeverity: (state, action) => {
+// 		HikvisionCvesBySeverity: (state, action) => {
 // 			state.value = state.value.filter(
 // 				(cve: ICVE) =>
 // 					cve.cve.metrics.cvssMetricV2[0]?.baseSeverity === action.payload
@@ -34,9 +34,9 @@
 // 	},
 // });
 
-// export const { setAllCves, DlinkCvesBySeverity } = DlinkSlice.actions;
+// export const { setAllCves, HikvisionCvesBySeverity } = HikvisionSlice.actions;
 
-// export default DlinkSlice.reducer;
+// export default HikvisionSlice.reducer;
 
 import { createSlice } from "@reduxjs/toolkit";
 import { ICVE } from "../../Components/CVECard/CVECard";
@@ -44,7 +44,7 @@ import { ICVE } from "../../Components/CVECard/CVECard";
 const getNVDData = async () => {
 	try {
 		const response = await fetch(
-			"https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=dlink",
+			"https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=Hikvision",
 			{
 				method: "GET",
 			}
@@ -59,17 +59,17 @@ const getNVDData = async () => {
 
 const cves: ICVE[] = await getNVDData();
 
-export const DlinkSlice = createSlice({
-	name: "DlinkCves",
+export const HikvisionSlice = createSlice({
+	name: "HikvisionCves",
 	initialState: {
 		value: cves,
 		initialValue: cves,
 	},
 	reducers: {
-		DlinkCves: (state) => {
+		HikvisionCves: (state) => {
 			state.value = state.initialValue;
 		},
-		DlinkCvesBySeverity: (state, action) => {
+		HikvisionCvesBySeverity: (state, action) => {
 			state.value = state.initialValue.filter(
 				(cve: ICVE) =>
 					cve.cve.metrics.cvssMetricV2?.[0]?.baseSeverity.toLowerCase() ===
@@ -79,6 +79,7 @@ export const DlinkSlice = createSlice({
 	},
 });
 
-export const { DlinkCves, DlinkCvesBySeverity } = DlinkSlice.actions;
+export const { HikvisionCves, HikvisionCvesBySeverity } =
+	HikvisionSlice.actions;
 
-export default DlinkSlice.reducer;
+export default HikvisionSlice.reducer;

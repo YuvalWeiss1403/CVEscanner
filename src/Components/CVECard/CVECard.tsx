@@ -71,6 +71,9 @@ const CVECard: React.FC<ICVECard> = (props: ICVECard) => {
 			<div className="cve-lastModified">{lastModified}</div>
 			<div className="cve-published">{published}</div>
 			<div className="cve-desc">{descriptions[0].value}</div>
+			<div className="cve-severity">
+				{metrics.cvssMetricV2?.[0]?.baseSeverity}
+			</div>
 		</div>
 	);
 };
