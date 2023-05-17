@@ -14,12 +14,7 @@ const App: React.FC = () => {
 				<Route path="/SignUp" element={<SignUp />} />
 				<Route path="/Login" element={<LogInPage />} />
 				<Route path="/userInfo" element={<UserInfoPage />} />
-				<Route path="/openwrt" element={<NVDPage companyName={"openwrt"} />} />
-				<Route path="/dlink" element={<NVDPage companyName={"dlink"} />} />
-				<Route
-					path="/hikvision"
-					element={<NVDPage companyName={"hikvision"} />}
-				/>
+				<Route path="/:companyName" element={<NVDPage />} />
 			</Routes>
 		</BrowserRouter>
 	);

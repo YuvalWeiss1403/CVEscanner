@@ -8,6 +8,7 @@ import SeverityCard from "../SeverityCard/SeverityCard";
 import { DlinkCves } from "../../store/slices/DlinkSlice";
 import { HikvisionCves } from "../../store/slices/HikvisionSlice";
 import { OpenwrtCves } from "../../store/slices/OpenwrtSlice";
+import { useParams } from "react-router-dom";
 
 interface BaseSeverity {
 	HIGH: number;
@@ -16,11 +17,8 @@ interface BaseSeverity {
 	[key: string]: number;
 }
 
-interface NVDPageProps {
-	companyName: string;
-}
-
-const NVDPage: React.FC<NVDPageProps> = ({ companyName }) => {
+const NVDPage: React.FC = () => {
+	const { companyName } = useParams<string>();
 	const openwrtCves = useSelector(
 		(state: RootState) => state.OpenwrtCves.value
 	);
@@ -38,11 +36,12 @@ const NVDPage: React.FC<NVDPageProps> = ({ companyName }) => {
 		cves = hikvisionCves;
 	}
 
+	const dispatch = useDispatch();
 	const initialValue: BaseSeverity = { HIGH: 0, MEDIUM: 0, LOW: 0 };
 	const [baseSeverity, setBaseSeverity] = useState<BaseSeverity>(initialValue);
-	const dispatch = useDispatch();
 
 	useEffect(() => {
+		setBaseSeverity(initialValue);
 		const handleSeverity = (sev: string) => {
 			setBaseSeverity((prevSeverity) => ({
 				...prevSeverity,
@@ -57,7 +56,7 @@ const NVDPage: React.FC<NVDPageProps> = ({ companyName }) => {
 				}
 			});
 		}
-	}, []);
+	}, [companyName]);
 
 	useEffect(() => {
 		dispatch(DlinkCves());
@@ -70,17 +69,21 @@ const NVDPage: React.FC<NVDPageProps> = ({ companyName }) => {
 			<NavBar />
 			<div className={`logo-${companyName}`}></div>
 			<div className="severity-cards">
+				<SeverityCard
+					type={"issues"}
+					count={cves.length}
+					company={companyName ? companyName : ""}
+				/>
 				{Object.entries(baseSeverity).map(([key, value]) => (
 					<SeverityCard
 						key={key}
 						type={key}
 						count={value}
-						company={companyName}
+						company={companyName ? companyName : ""}
 					/>
 				))}
 			</div>
 			<div className="cve-content">
-				<div className="cve-count">{cves.length}</div>
 				{cves &&
 					cves.map((cve: ICVE, index: number) => (
 						<CVECard

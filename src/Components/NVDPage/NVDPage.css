@@ -7,7 +7,6 @@
 .logo-openwrt {
 	padding-left: 160px;
 	padding-top: 20px;
-
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -16,14 +15,12 @@
 }
 
 .cve-content {
-	padding-left: 160px;
-	padding-top: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
+	padding: 20px 10px 0 170px;
+	display: grid;
 	justify-content: center;
 	align-items: center;
 	overflow-y: scroll;
+	grid-template-columns: repeat(4, 1fr);
 }
 .severity-cards {
 	padding-left: 160px;
