@@ -12,6 +12,7 @@ export interface description {
 export interface reference {
 	url: string;
 	source: string;
+	tags:string[];
 }
 export interface weakness {
 	source: string;
@@ -50,7 +51,24 @@ export interface ICVECard {
 	vulnStatus: string;
 	weaknesses: weakness[];
 	metrics: metric;
+	configurations:configuration;
 }
+
+export interface configuration{
+	nodes: node;
+}
+export interface node{
+	cpeMatch:cpeMatch;
+}
+export interface cpeMatch{
+	vulnerable:boolean;
+	criteria:string;
+	versionEndIncluding:string;
+}
+
+
+
+
 
 const CVECard: React.FC<ICVECard> = (props: ICVECard) => {
 	const {

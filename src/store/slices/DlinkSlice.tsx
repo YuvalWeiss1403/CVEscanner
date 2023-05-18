@@ -36,9 +36,34 @@ export const DlinkSlice = createSlice({
 					action.payload
 			);
 		},
+		DlinkCvesByID: (state, action) => {
+			state.value = state.initialValue.filter((cve: ICVE) =>
+				cve.cve.id.toLowerCase().includes(action.payload)
+			);
+		},
+		DlinkCvesByDesc: (state, action) => {
+			state.value = state.initialValue.filter((cve: ICVE) =>
+				cve.cve.descriptions[0].value.toLowerCase().includes(action.payload)
+			);
+		},
+		DlinkCvesByDescOrID: (state, action) => {
+			state.value = state.initialValue.filter(
+				(cve: ICVE) =>
+					cve.cve.descriptions[0].value
+						.toLowerCase()
+						.includes(action.payload) ||
+					cve.cve.id.toLowerCase().includes(action.payload)
+			);
+		},
 	},
 });
 
-export const { DlinkCves, DlinkCvesBySeverity } = DlinkSlice.actions;
+export const {
+	DlinkCves,
+	DlinkCvesBySeverity,
+	DlinkCvesByDesc,
+	DlinkCvesByDescOrID,
+	DlinkCvesByID,
+} = DlinkSlice.actions;
 
 export default DlinkSlice.reducer;

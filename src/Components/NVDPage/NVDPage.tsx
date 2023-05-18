@@ -5,9 +5,24 @@ import CVECard, { ICVE, metricData } from "../CVECard/CVECard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import SeverityCard from "../SeverityCard/SeverityCard";
-import { DlinkCves } from "../../store/slices/DlinkSlice";
-import { HikvisionCves } from "../../store/slices/HikvisionSlice";
-import { OpenwrtCves } from "../../store/slices/OpenwrtSlice";
+import {
+	DlinkCves,
+	DlinkCvesByDesc,
+	DlinkCvesByDescOrID,
+	DlinkCvesByID,
+} from "../../store/slices/DlinkSlice";
+import {
+	HikvisionCves,
+	HikvisionCvesByDesc,
+	HikvisionCvesByDescOrID,
+	HikvisionCvesByID,
+} from "../../store/slices/HikvisionSlice";
+import {
+	OpenwrtCves,
+	OpenwrtCvesByDesc,
+	OpenwrtCvesByDescOrID,
+	OpenwrtCvesByID,
+} from "../../store/slices/OpenwrtSlice";
 import { useParams } from "react-router-dom";
 
 interface BaseSeverity {
@@ -26,6 +41,13 @@ const NVDPage: React.FC = () => {
 	const hikvisionCves = useSelector(
 		(state: RootState) => state.HikvisionCves.value
 	);
+	const dispatch = useDispatch();
+	const initialValue: BaseSeverity = { HIGH: 0, MEDIUM: 0, LOW: 0 };
+	const [baseSeverity, setBaseSeverity] = useState<BaseSeverity>(initialValue);
+	const [searchByID, setSearchByID] = useState<boolean>(false);
+	const [searchByDesc, setSearchByDesc] = useState<boolean>(false);
+	const [searchInput, setSearchInput] = useState<string>("");
+	const [totalIssues, setTotalIssues] = useState<number>(0);
 
 	let cves: ICVE[] = [];
 	if (companyName === "openwrt") {
@@ -35,10 +57,6 @@ const NVDPage: React.FC = () => {
 	} else if (companyName === "hikvision") {
 		cves = hikvisionCves;
 	}
-
-	const dispatch = useDispatch();
-	const initialValue: BaseSeverity = { HIGH: 0, MEDIUM: 0, LOW: 0 };
-	const [baseSeverity, setBaseSeverity] = useState<BaseSeverity>(initialValue);
 
 	useEffect(() => {
 		setBaseSeverity(initialValue);
@@ -56,6 +74,7 @@ const NVDPage: React.FC = () => {
 				}
 			});
 		}
+		setTotalIssues(cves.length);
 	}, [companyName]);
 
 	useEffect(() => {
@@ -64,16 +83,51 @@ const NVDPage: React.FC = () => {
 		dispatch(OpenwrtCves());
 	}, []);
 
+	const handelSearch = () => {
+		if (companyName === "openwrt") {
+			if (searchByDesc && searchByID) {
+				dispatch(OpenwrtCvesByDescOrID(searchInput));
+			} else if (searchByID) {
+				dispatch(OpenwrtCvesByID(searchInput));
+			} else if (searchByDesc) {
+				dispatch(OpenwrtCvesByDesc(searchInput));
+			}
+		} else if (companyName === "dlink") {
+			if (searchByDesc && searchByID) {
+				dispatch(DlinkCvesByDescOrID(searchInput));
+			} else if (searchByID) {
+				dispatch(DlinkCvesByID(searchInput));
+			} else if (searchByDesc) {
+				dispatch(DlinkCvesByDesc(searchInput));
+			}
+		} else if (companyName === "hikvision") {
+			if (searchByDesc && searchByID) {
+				dispatch(HikvisionCvesByDescOrID(searchInput));
+			} else if (searchByID) {
+				dispatch(HikvisionCvesByID(searchInput));
+			} else if (searchByDesc) {
+				dispatch(HikvisionCvesByDesc(searchInput));
+			}
+		}
+	};
+
+	useEffect(() => {
+		handelSearch();
+	}, [searchInput]);
+
 	return (
 		<div className="nvd-page">
 			<NavBar />
-			<div className={`logo-${companyName}`}></div>
+			<div className="page-heading">{companyName + " dashboard"}</div>
 			<div className="severity-cards">
-				<SeverityCard
-					type={"issues"}
-					count={cves.length}
-					company={companyName ? companyName : ""}
-				/>
+				<div className="total-severity-card">
+					<div className="type-heading">Total Issues</div>
+					<div className="since-heading">Since 1 week ago</div>
+					<div className="count-box issues">
+						<div className="cves-count">{totalIssues}</div>
+						<div className="type">{"Issues"}</div>
+					</div>
+				</div>
 				{Object.entries(baseSeverity).map(([key, value]) => (
 					<SeverityCard
 						key={key}
@@ -83,22 +137,66 @@ const NVDPage: React.FC = () => {
 					/>
 				))}
 			</div>
-			<div className="cve-content">
-				{cves &&
-					cves.map((cve: ICVE, index: number) => (
-						<CVECard
-							key={index}
-							descriptions={cve.cve.descriptions}
-							id={cve.cve.id}
-							lastModified={cve.cve.lastModified}
-							published={cve.cve.published}
-							references={cve.cve.references}
-							sourceIdentifier={cve.cve.sourceIdentifier}
-							vulnStatus={cve.cve.vulnStatus}
-							weaknesses={cve.cve.weaknesses}
-							metrics={cve.cve.metrics}
-						/>
-					))}
+			<div className="search-container">
+				<div className="search-heading">Search By:</div>
+				<div className="id-search">
+					<input
+						type="checkbox"
+						checked={searchByID}
+						onChange={() => setSearchByID((prevSearchByID) => !prevSearchByID)}
+					/>{" "}
+					<label>ID</label>
+				</div>
+				<div className="desc-search">
+					<input
+						type="checkbox"
+						checked={searchByDesc}
+						onChange={() =>
+							setSearchByDesc((prevSearchByID) => !prevSearchByID)
+						}
+					/>{" "}
+					<label>Description</label>
+				</div>
+				<input
+					type="text"
+					placeholder="Search CVE"
+					onChange={(e) => setSearchInput(e.target.value)}></input>
+				<div>{"Results: " + cves.length}</div>
+			</div>
+			<div className="table-container">
+				<table className="cve-content">
+					<thead>
+						<tr>
+							<th className="index"></th>
+							<th className="cve-id-heading">ID</th>
+							<th className="cve-lastModified-heading">Last Modified</th>
+							<th className="cve-published-heading">Published Date</th>
+							<th className="cve-desc-heading">Descriptions</th>
+							<th className="cve-patch-heading">Patched</th>
+						</tr>
+					</thead>
+					<tbody>
+						{cves &&
+							cves.map((cve: ICVE, index: number) => (
+								<tr key={index}>
+									<td className="index">{index + 1}</td>
+									<td className="cve-id">{cve.cve.id}</td>
+									<td className="cve-lastModified">{cve.cve.lastModified}</td>
+									<td className="cve-published">{cve.cve.published}</td>
+									<td className="cve-desc">{cve.cve.descriptions[0].value}</td>
+									<th className="cve-patch">
+										{cve.cve.references &&
+										cve.cve.references[0]?.tags &&
+										cve.cve.references[0].tags[0] === "Patch" ? (
+											<button className="patch">Patch now</button>
+										) : (
+											"No available patch"
+										)}
+									</th>
+								</tr>
+							))}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	);

@@ -36,9 +36,34 @@ export const OpenwrtSlice = createSlice({
 					action.payload
 			);
 		},
+		OpenwrtCvesByID: (state, action) => {
+			state.value = state.initialValue.filter((cve: ICVE) =>
+				cve.cve.id.toLowerCase().includes(action.payload)
+			);
+		},
+		OpenwrtCvesByDesc: (state, action) => {
+			state.value = state.initialValue.filter((cve: ICVE) =>
+				cve.cve.descriptions[0].value.toLowerCase().includes(action.payload)
+			);
+		},
+		OpenwrtCvesByDescOrID: (state, action) => {
+			state.value = state.initialValue.filter(
+				(cve: ICVE) =>
+					cve.cve.descriptions[0].value
+						.toLowerCase()
+						.includes(action.payload) ||
+					cve.cve.id.toLowerCase().includes(action.payload)
+			);
+		},
 	},
 });
 
-export const { OpenwrtCves, OpenwrtCvesBySeverity } = OpenwrtSlice.actions;
+export const {
+	OpenwrtCves,
+	OpenwrtCvesBySeverity,
+	OpenwrtCvesByID,
+	OpenwrtCvesByDesc,
+	OpenwrtCvesByDescOrID,
+} = OpenwrtSlice.actions;
 
 export default OpenwrtSlice.reducer;

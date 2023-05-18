@@ -36,10 +36,34 @@ export const HikvisionSlice = createSlice({
 					action.payload
 			);
 		},
+		HikvisionCvesByID: (state, action) => {
+			state.value = state.initialValue.filter((cve: ICVE) =>
+				cve.cve.id.toLowerCase().includes(action.payload)
+			);
+		},
+		HikvisionCvesByDesc: (state, action) => {
+			state.value = state.initialValue.filter((cve: ICVE) =>
+				cve.cve.descriptions[0].value.toLowerCase().includes(action.payload)
+			);
+		},
+		HikvisionCvesByDescOrID: (state, action) => {
+			state.value = state.initialValue.filter(
+				(cve: ICVE) =>
+					cve.cve.descriptions[0].value
+						.toLowerCase()
+						.includes(action.payload) ||
+					cve.cve.id.toLowerCase().includes(action.payload)
+			);
+		},
 	},
 });
 
-export const { HikvisionCves, HikvisionCvesBySeverity } =
-	HikvisionSlice.actions;
+export const {
+	HikvisionCves,
+	HikvisionCvesBySeverity,
+	HikvisionCvesByDesc,
+	HikvisionCvesByDescOrID,
+	HikvisionCvesByID,
+} = HikvisionSlice.actions;
 
 export default HikvisionSlice.reducer;
