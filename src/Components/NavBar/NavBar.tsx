@@ -17,7 +17,7 @@ const NavBar: React.FC = () => {
 					Hook
 				</button>
 				<input type="text" placeholder="Search" className="search"></input>
-				<button className="add-data">Add Data</button>
+				<button className="add-device" onClick={() => navigator("/AddDevice")}>Add Device</button>
 				<button className="devices">Devices</button>
 				<button className="openwrt" onClick={() => navigator("/openwrt")}>
 					Openwrt

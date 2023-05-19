@@ -12,6 +12,7 @@ const SignUp: React.FC = () => {
 		email: "",
 		password: "",
 		confirmPassword: "",
+		companyName: "",
 	};
 
 	const [User, setUser] = useState(defaultInputValue);
@@ -28,6 +29,7 @@ const SignUp: React.FC = () => {
 				lastName: User.last_name,
 				email: User.email,
 				password: User.password,
+				companyName: User.companyName,
 			});
 			sessionStorage.setItem("user", JSON.stringify(userReq.data));
 			navigator("/");
@@ -68,6 +70,14 @@ const SignUp: React.FC = () => {
 					className="enter-last-name"
 					type="text"
 					placeholder="Last Name"></input>
+				<input
+					value={User.companyName}
+					onChange={async (e) =>
+						await setUser({ ...User, companyName: e.target.value })
+					}
+					className="enter-email"
+					type="text"
+					placeholder="Company Name"></input>
 				<input
 					value={User.email}
 					onChange={async (e) =>

@@ -5,6 +5,7 @@ import SignUp from "./Components/SignUp/SignUp";
 import LogInPage from "./Components/LogInPage/LogInPage";
 import UserInfoPage from "./Components/UserInfoPage/UserInfoPage";
 import NVDPage from "./Components/NVDPage/NVDPage";
+import AddDevicePage from "./Components/AddDevicePage/AddDevicePage";
 
 const App: React.FC = () => {
 	return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
 				<Route path="/Login" element={<LogInPage />} />
 				<Route path="/userInfo" element={<UserInfoPage />} />
 				<Route path="/:companyName" element={<NVDPage />} />
+				<Route path="/AddDevice" element={<AddDevicePage />} />
 			</Routes>
 		</BrowserRouter>
 	);
