@@ -30,17 +30,24 @@ const AddDevicePage: React.FC = () => {
 
 	const AddDeviceToDb = async () => {
 		try {
-			const userReq = await axios.post("http://localhost:3001/devices/create", {
-				location: Device.Location,
-				ipAddress: Device.IpAddress,
-				patchHistory: Device.patchHistory,
-				year: Device.year,
-				type: Device.Type,
-				companyName: data.CompanyName,
-			});
+			const response = await axios.post(
+				"http://localhost:3001/devices/create",
+				{
+					location: Device.Location,
+					ipAddress: Device.IpAddress,
+					patchHistory: Device.patchHistory,
+					year: Device.year,
+					type: Device.Type,
+					companyName: "Hook",
+				}
+			);
 			navigator("/");
 		} catch (error: any) {
-			return [];
+			if (error.response && error.response.status === 409) {
+				console.error(error.response.data);
+			} else {
+				console.error(error);
+			}
 		}
 	};
 
