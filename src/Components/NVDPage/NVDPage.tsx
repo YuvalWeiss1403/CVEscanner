@@ -23,7 +23,7 @@ import {
 	OpenwrtCvesByDescOrID,
 	OpenwrtCvesByID,
 } from "../../store/slices/OpenwrtSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface BaseSeverity {
 	HIGH: number;
@@ -48,6 +48,7 @@ const NVDPage: React.FC = () => {
 	const [searchByDesc, setSearchByDesc] = useState<boolean>(false);
 	const [searchInput, setSearchInput] = useState<string>("");
 	const [totalIssues, setTotalIssues] = useState<number>(0);
+	const navigate = useNavigate();
 
 	let cves: ICVE[] = [];
 	if (companyName === "openwrt") {
@@ -188,7 +189,11 @@ const NVDPage: React.FC = () => {
 										{cve.cve.references &&
 										cve.cve.references[0]?.tags &&
 										cve.cve.references[0].tags[0] === "Patch" ? (
-											<button className="patch">Patch now</button>
+											<button
+												className="patch"
+												onClick={() => navigate(`/PatchCve/${cve.cve.id}`)}>
+												Patch now
+											</button>
 										) : (
 											"No available patch"
 										)}

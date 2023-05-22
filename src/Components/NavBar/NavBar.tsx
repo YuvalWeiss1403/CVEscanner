@@ -21,7 +21,7 @@ const NavBar: React.FC = () => {
 		<div className="navbar">
 			<div className="navbar-container">
 				<button className="logo" onClick={() => navigator("/")}>
-					Hook
+					Cve Scanner
 				</button>
 				<input type="text" placeholder="Search" className="search"></input>
 				<button className="add-device" onClick={() => navigator("/AddDevice")}>

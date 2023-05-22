@@ -7,6 +7,7 @@ import UserInfoPage from "./Components/UserInfoPage/UserInfoPage";
 import NVDPage from "./Components/NVDPage/NVDPage";
 import SingleCompanyDevices from "./Components/SingleCompanyDevices/SingleCompanyDevices";
 import AddDevicePage from "./Components/AddDevicePage/AddDevicePage";
+import PatchCvePage from "./Components/PatchCvePage/PatchCvePage";
 
 const App: React.FC = () => {
 	return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
 				<Route path="/SignUp" element={<SignUp />} />
 				<Route path="/Login" element={<LogInPage />} />
 				<Route path="/userInfo" element={<UserInfoPage />} />
+				<Route path="/PatchCve/:CVEId" element={<PatchCvePage />} />
 				<Route path="/AddDevice" element={<AddDevicePage />} />
 				<Route path="/:companyName" element={<NVDPage />} />
 				<Route
