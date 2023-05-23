@@ -44,9 +44,15 @@ export const CompaniesSlice = createSlice({
 		AddDevice: (state, action) => {
 			state.initialValue = action.payload;
 		},
+		DevicesByType: (state, action) => {
+			state.value = state.value?.filter(
+				(device) => device.Type.toLowerCase() === action.payload
+			);
+		},
 	},
 });
 
-export const { AllDevices, DevicesByID, AddDevice } = CompaniesSlice.actions;
+export const { AllDevices, DevicesByID, AddDevice, DevicesByType } =
+	CompaniesSlice.actions;
 
 export default CompaniesSlice.reducer;

@@ -191,7 +191,9 @@ const NVDPage: React.FC = () => {
 										cve.cve.references[0].tags[0] === "Patch" ? (
 											<button
 												className="patch"
-												onClick={() => navigate(`/PatchCve/${cve.cve.id}`)}>
+												onClick={() =>
+													navigate(`/PatchCve/${cve.cve.id}/${companyName}`)
+												}>
 												Patch now
 											</button>
 										) : (

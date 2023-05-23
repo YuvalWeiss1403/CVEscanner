@@ -1,0 +1,39 @@
+.patch-cve-content{	padding: 20px 10px 20px 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.device-patched-modal {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 2;
+}
+.device-patched-content {
+	font-family: "Helvetica Neue Thin";
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 315px;
+	background-color: #f9f4ea;
+	overflow: scroll;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+	gap: 15px;
+	padding: 10px;
+}
+
+.device-patched-header {
+	font-size: 20px;
+	font-family: "Helvetica Neue Light";
+}

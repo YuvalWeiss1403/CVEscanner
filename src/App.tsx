@@ -17,7 +17,10 @@ const App: React.FC = () => {
 				<Route path="/SignUp" element={<SignUp />} />
 				<Route path="/Login" element={<LogInPage />} />
 				<Route path="/userInfo" element={<UserInfoPage />} />
-				<Route path="/PatchCve/:CVEId" element={<PatchCvePage />} />
+				<Route
+					path="/PatchCve/:CVEId/:companyName"
+					element={<PatchCvePage />}
+				/>
 				<Route path="/AddDevice" element={<AddDevicePage />} />
 				<Route path="/:companyName" element={<NVDPage />} />
 				<Route
