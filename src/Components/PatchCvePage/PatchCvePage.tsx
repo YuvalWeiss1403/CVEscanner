@@ -68,7 +68,7 @@ const PatchCvePage: React.FC = () => {
 	return (
 		<div className="patch-cve-page">
 			<NavBar />
-			<div className="-patch-cve-content">
+			<div className="patch-cve-content">
 				<div className="cve-id">{cves[0].cve.id}</div>
 				<div className="cve-desc">{cves[0].cve.descriptions[0].value}</div>
 				<div className="choose-patch-container">
