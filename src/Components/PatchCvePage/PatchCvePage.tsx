@@ -1,6 +1,6 @@
 import "./PatchCvePage.css";
 import NavBar from "../NavBar/NavBar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ICVE } from "../CVECard/CVECard";
@@ -18,7 +18,7 @@ const PatchCvePage: React.FC = () => {
 	const { companyName } = useParams<string>();
 	const { CVEId } = useParams<string>();
 	const [Product, setProduct] = useState<string>("all");
-	const [Device, setDevice] = useState<string>("all");
+	const [SelectedDevices, setSelectedDevices] = useState<string[]>([]);
 	const [PatchedModal, setPatchedModal] = useState(false);
 
 	const openwrtCves = useSelector(
@@ -33,6 +33,7 @@ const PatchCvePage: React.FC = () => {
 		(state: RootState) => state.Devices.value
 	);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	let cves: ICVE[] = [];
 	if (companyName === "openwrt") {
@@ -53,8 +54,14 @@ const PatchCvePage: React.FC = () => {
 	const handelProductSelection = (value: string) => {
 		setProduct(value);
 	};
+
 	const handelDeviceSelection = (value: string) => {
-		setDevice(value);
+		const isSelected = SelectedDevices.includes(value);
+		setSelectedDevices((prevDevices) =>
+			isSelected
+				? prevDevices.filter((device) => device !== value)
+				: [...prevDevices, value]
+		);
 	};
 
 	const handelPatched = () => {
@@ -73,7 +80,7 @@ const PatchCvePage: React.FC = () => {
 				<div className="cve-desc">{cves[0].cve.descriptions[0].value}</div>
 				<div className="choose-patch-container">
 					<div className="choose-product">
-						<label>Choose a Product:</label>
+						<label>{"Choose a Product: "}</label>
 
 						<select
 							name="product"
@@ -85,25 +92,33 @@ const PatchCvePage: React.FC = () => {
 							<option value="camera">Camera</option>
 						</select>
 					</div>
-					<div className="choose-device">
-						<label>Choose a Device:</label>
-						<select
-							name="device"
-							id="devices"
-							onChange={(e) => handelDeviceSelection(e.target.value)}>
-							<option value="all">All</option>
-							{devices &&
-								devices.map(
-									(device: IDevices, index: number) =>
-										device.Type.toLowerCase() === Product?.toLowerCase() && (
-											<option value={device.IpAddress} key={index}>
-												{device.IpAddress}
-											</option>
-										)
-								)}
-						</select>
-					</div>
 				</div>
+				<table className="device-table">
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Device IP</th>
+							<th>Year</th>
+							<th>Last Patched</th>
+						</tr>
+					</thead>
+					<tbody>
+						{devices.map((device: IDevices, index: number) => (
+							<tr key={index}>
+								<td>
+									<input
+										type="checkbox"
+										checked={SelectedDevices.includes(device.IpAddress)}
+										onChange={() => handelDeviceSelection(device.IpAddress)}
+									/>
+								</td>
+								<td>{device.IpAddress}</td>
+								<td>{device.year}</td>
+								<td>{device.PatchHistory}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 				<button className="patch" onClick={() => handelPatched()}>
 					Patch Devices
 				</button>
@@ -112,12 +127,15 @@ const PatchCvePage: React.FC = () => {
 				<div className="device-patched-modal">
 					<button
 						className="close-button"
-						onClick={() => setPatchedModal(false)}>
+						onClick={() => {
+							setPatchedModal(false);
+							window.location.reload();
+						}}>
 						&times;
 					</button>
 					<div className="device-patched-content">
 						<div className="device-patched-header">Device Patched:</div>
-						<div className="device-patched">{`${Device}`}</div>
+						<div className="device-patched">{SelectedDevices.join(", ")}</div>
 					</div>
 				</div>
 			)}

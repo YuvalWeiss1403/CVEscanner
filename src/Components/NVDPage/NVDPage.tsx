@@ -5,6 +5,8 @@ import CVECard, { ICVE, metricData } from "../CVECard/CVECard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import SeverityCard from "../SeverityCard/SeverityCard";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 import {
 	DlinkCves,
 	DlinkCvesByDesc,
@@ -24,7 +26,7 @@ import {
 	OpenwrtCvesByID,
 } from "../../store/slices/OpenwrtSlice";
 import { useNavigate, useParams } from "react-router-dom";
-
+ChartJS.register(ArcElement, Tooltip, Legend);
 interface BaseSeverity {
 	HIGH: number;
 	MEDIUM: number;
@@ -116,10 +118,32 @@ const NVDPage: React.FC = () => {
 		handelSearch();
 	}, [searchInput]);
 
+	const data = {
+		labels: ["High", "Medium", "Low"],
+		datasets: [
+			{
+				label: "Count",
+				data: [
+					baseSeverity["HIGH"],
+					baseSeverity["MEDIUM"],
+					baseSeverity["LOW"],
+				],
+				backgroundColor: ["red", "orange", "green"],
+			},
+		],
+	};
+	const options = {};
+
 	return (
 		<div className="nvd-page">
 			<NavBar />
 			<div className="page-heading">{companyName + " dashboard"}</div>
+			<div className="by-severity-graph">
+				<Doughnut
+					id="by-severity-graph"
+					data={data}
+					options={options}></Doughnut>
+			</div>
 			<div className="severity-cards">
 				<div className="total-severity-card">
 					<div className="type-heading">Total Issues</div>

@@ -70,3 +70,11 @@
 	background-color: rgba(90, 221, 90, 0.572);
 	border-radius: 5;
 }
+
+.by-severity-graph {
+	display: flex;
+	padding-left: 170px;
+	justify-content: center;
+	align-items: center;
+	height: 195px;
+}
