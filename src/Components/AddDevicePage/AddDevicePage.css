@@ -1,0 +1,49 @@
+.add-device-page {
+	height: 100vh;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+}
+
+.add-device-not-loggedin {
+	padding-left: 160px;
+	text-align: center;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.data-input {
+    padding-left: 160px;
+	text-align: center;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.user-logged-heading{
+	font-size: 24px;
+	line-height: 26px;
+	letter-spacing: 2.67px;
+	text-transform: uppercase;
+}
+
+.add-device-heading
+{
+    letter-spacing: 1.67px;
+
+}
+.data-input input {
+	width: 35%;
+	min-width: 150px;
+	border:  0.5px solid black;
+	background-color: transparent;
+    border-radius: 4px;
+    padding: 5px;
+}

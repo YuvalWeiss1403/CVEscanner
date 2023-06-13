@@ -47,7 +47,7 @@ const LogInPage: React.FC = () => {
 					placeholder="Password"
 					onChange={(e) => setPassword(e.target.value)}></input>
 				<button
-					id="page-login"
+					className="page-login"
 					onClick={() => {
 						handelLogin();
 						setEmail("");
@@ -55,7 +55,7 @@ const LogInPage: React.FC = () => {
 					}}>
 					Login
 				</button>
-				<button id="page-forget-password">Forget password?</button>
+				<button className="page-forget-password">Forget password?</button>
 				<div className="or-div">
 					<hr></hr>
 					<div>or</div>

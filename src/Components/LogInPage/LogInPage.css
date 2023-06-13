@@ -38,7 +38,7 @@
 	border-bottom: 0.5px solid black;
 }
 
-#page-login {
+.page-login {
 	border: 0;
 	background-color: #544c54;
 	color: white;
@@ -51,16 +51,16 @@
 	height: 30px;
 	text-align: center;
 }
-#page-login:hover {
+.page-login:hover {
 	background-color: #979797;
 }
-#page-forget-password {
+.page-forget-password {
 	border: 0;
 	line-height: 18px;
 	letter-spacing: 1.97px;
 	background-color: transparent;
 }
-#forget-password:hover {
+.forget-password:hover {
 	color: #979797;
 }
 

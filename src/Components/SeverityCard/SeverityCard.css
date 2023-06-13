@@ -1,0 +1,59 @@
+.severity-card {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	box-shadow: 2px 10px 10px hsla(0, 0%, 69%, 1.25);
+	border-radius: 3px;
+}
+
+.severity-card:hover {
+	cursor: pointer;
+}
+
+.severity-card:active {
+	transform: translateY(4px);
+}
+
+.type-heading {
+	text-transform: capitalize;
+	font-size: 20px;
+	letter-spacing: 0.5px;
+	padding: 10px 10px 0px 5px;
+}
+
+.since-heading {
+	font-size: 12px;
+	color: #000000a1;
+	padding: 0px 10px 10px 5px;
+}
+.count-box {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: white;
+	padding: 10px 10px 10px 20px;
+	font-weight: 300;
+}
+
+.cves-count {
+	font-weight: 600;
+}
+
+.type {
+	text-transform: capitalize;
+}
+
+.high {
+	background-color: red;
+}
+.medium {
+	background-color: orange;
+}
+.low {
+	background-color: green;
+}
+
+.issues {
+	background-color: white;
+	color: black;
+}
