@@ -4,4 +4,56 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	background-color: rgb(38, 38, 54);
+}
+
+.home-page-content {
+	padding: 20px 10px 20px 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	gap: 20px;
+}
+
+.home-page-heading {
+	font-size: 65px;
+	text-align: center;
+	padding-top: 20px;
+	font-family: "Dancing Script", cursive;
+	color: white;
+}
+
+.companies-cve {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+	padding-top: 20px;
+}
+
+.company {
+	border: 1px solid white;
+	border-radius: 50%;
+	color: white;
+	font-size: 30px;
+	padding: 20px;
+	width: 165px;
+	height: 75px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.company:hover {
+	box-shadow: 0px 0px 20px hsla(0, 0%, 69%, 1.25);
+	cursor: pointer;
+}
+
+#company2 {
+	margin-top: 40px;
+}
+
+#company3 {
+	margin-top: 80px;
 }
